@@ -3,6 +3,7 @@ package config
 import (
 	"errors"
 	"os"
+	"strings"
 )
 
 type Config struct {
@@ -12,7 +13,8 @@ type Config struct {
 	GoogleClientSecret string
 	GoogleRedirectURL  string
 	SessionSecret      string
-	FrontendURL        string
+	FrontendURL        string   // canonical, used for post-login redirect
+	AllowedOrigins     []string // CORS allow-list; defaults to [FrontendURL]
 }
 
 func Load() (*Config, error) {
@@ -27,6 +29,16 @@ func Load() (*Config, error) {
 	}
 	if c.DatabaseURL == "" {
 		return nil, errors.New("DATABASE_URL is required")
+	}
+	if raw := os.Getenv("ALLOWED_ORIGINS"); raw != "" {
+		for _, p := range strings.Split(raw, ",") {
+			if p = strings.TrimSpace(p); p != "" {
+				c.AllowedOrigins = append(c.AllowedOrigins, p)
+			}
+		}
+	}
+	if len(c.AllowedOrigins) == 0 {
+		c.AllowedOrigins = []string{c.FrontendURL}
 	}
 	return c, nil
 }
