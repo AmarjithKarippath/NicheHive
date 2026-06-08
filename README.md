@@ -21,14 +21,14 @@ migrations/          goose SQL migrations
 ```
 cp .env.example .env       # fill in Google OAuth creds
 make up                    # builds api+migrator, starts postgres, runs migrations, then api
-curl localhost:8080/healthz
+curl localhost:8085/healthz
 make logs                  # tail api logs
 make down                  # stop
 ```
 Services:
 - `postgres` — Postgres 16 with a named volume `pgdata`.
 - `migrate` — one-shot goose runner; `api` waits for it to complete.
-- `api` — distroless Go binary on :8080.
+- `api` — distroless Go binary on :8085.
 
 ## Setup (local Go)
 1. `cp .env.example .env` and fill in Google OAuth creds + DATABASE_URL.
@@ -44,7 +44,7 @@ Services:
    ```
    make run
    ```
-5. Health check: `curl localhost:8080/healthz`
+5. Health check: `curl localhost:8085/healthz`
 
 ## API (v1, scaffold)
 All routes under `/api/v1`. Handlers currently return 501 — to be implemented next.

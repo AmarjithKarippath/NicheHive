@@ -1,5 +1,5 @@
 export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080/api/v1";
+  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8085/api/v1";
 
 export type User = {
   id: number;

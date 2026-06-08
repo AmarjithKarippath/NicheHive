@@ -19,7 +19,7 @@ RUN go install github.com/pressly/goose/v3/cmd/goose@v3.22.1
 FROM gcr.io/distroless/static-debian12:nonroot AS api
 WORKDIR /app
 COPY --from=build /out/api /app/api
-EXPOSE 8080
+EXPOSE 8085
 USER nonroot:nonroot
 ENTRYPOINT ["/app/api"]
 

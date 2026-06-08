@@ -23,6 +23,6 @@ COPY --from=build --chown=app:app /app/.next/standalone ./
 COPY --from=build --chown=app:app /app/.next/static ./.next/static
 COPY --from=build --chown=app:app /app/public ./public
 USER app
-EXPOSE 3000
-ENV PORT=3000 HOSTNAME=0.0.0.0
+EXPOSE 3005
+ENV PORT=3005 HOSTNAME=0.0.0.0
 CMD ["node", "server.js"]

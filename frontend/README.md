@@ -9,9 +9,9 @@ cp .env.local.example .env.local
 npm install
 npm run dev
 ```
-Open http://localhost:3000.
+Open http://localhost:3005.
 
-The backend must be running at the URL in `NEXT_PUBLIC_API_URL` (default `http://localhost:8080/api/v1`). Sessions use cookies, so `fetch` uses `credentials: "include"`.
+The backend must be running at the URL in `NEXT_PUBLIC_API_URL` (default `http://localhost:8085/api/v1`). Sessions use cookies, so `fetch` uses `credentials: "include"`.
 
 ## Pages
 - `/` — home (posts feed TBD)
