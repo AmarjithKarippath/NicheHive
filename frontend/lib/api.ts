@@ -129,4 +129,14 @@ export const api = {
     }),
   deleteComment: (id: number) =>
     request<null>(`/comments/${id}`, { method: "DELETE" }),
+
+  submitFeedback: (input: {
+    kind: "bug" | "enhancement" | "other";
+    message: string;
+    page_url?: string;
+  }) =>
+    request<null>("/feedback", {
+      method: "POST",
+      body: JSON.stringify(input),
+    }),
 };

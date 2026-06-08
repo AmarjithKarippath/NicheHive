@@ -14,6 +14,7 @@ import (
 	"github.com/amar/reddit/internal/comments"
 	"github.com/amar/reddit/internal/communities"
 	"github.com/amar/reddit/internal/config"
+	"github.com/amar/reddit/internal/feedback"
 	"github.com/amar/reddit/internal/posts"
 )
 
@@ -46,6 +47,7 @@ func New(cfg *config.Config, pool *pgxpool.Pool) http.Handler {
 	commH := communities.New(pool)
 	postH := posts.New(pool)
 	cmtH := comments.New(pool)
+	fbH := feedback.New(pool)
 
 	r.Route("/api/v1", func(r chi.Router) {
 		// auth (public)
@@ -87,6 +89,8 @@ func New(cfg *config.Config, pool *pgxpool.Pool) http.Handler {
 
 			r.Get("/users/{username}", notImplemented)
 			r.Get("/search", notImplemented)
+
+			r.Post("/feedback", fbH.Submit)
 		})
 	})
 

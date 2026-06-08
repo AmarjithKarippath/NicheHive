@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { api, User } from "@/lib/api";
+import { FeedbackModal } from "./FeedbackModal";
 
 export function Navbar() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showFeedback, setShowFeedback] = useState(false);
 
   useEffect(() => {
     api
@@ -29,6 +31,12 @@ export function Navbar() {
           NicheHive
         </Link>
         <div className="flex items-center gap-3 text-sm">
+          <button
+            onClick={() => setShowFeedback(true)}
+            className="rounded border px-3 py-1 text-neutral-600 hover:bg-neutral-100"
+          >
+            Feedback
+          </button>
           {loading ? null : user ? (
             <>
               <Link
@@ -55,6 +63,7 @@ export function Navbar() {
           )}
         </div>
       </div>
+      {showFeedback && <FeedbackModal onClose={() => setShowFeedback(false)} />}
     </nav>
   );
 }
